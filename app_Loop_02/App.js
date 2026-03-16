@@ -1,84 +1,89 @@
 import React from 'react';
-import { View, Text, ImageBackground } from 'react-native';
+import { View, Text, ImageBackground, StyleSheet } from 'react-native';
 
 function App() {
 
-  const jogadores = [
-    "Goleiro-------: Alisson",
-    "Lateral Dir.--: - Danilo",
-    "Zagueiro------: - Marquinhos",
-    "Zagueiro------: - Thiago Silva",
-    "Lateral Esq.--: - Alex Sandro",
-    "Volante-------: - Casemiro",
-    "Meia----------: - Lucas Paquetá",
-    "Meia----------: - Neymar",
-    "Ponta Dir.----: - Raphinha",
-    "Centroavante--: - Richarlison",
-    "Ponta Esq-----:. - Vinícius Jr"
+  const paises = [
+    "BRL - Brasil",
+    "ESP - Espanha",
+    "MEX - México",
+    "AUS - Austrália",
+    "GER - Alemanha",
+    "FRA - França",
+    "ARG - Argentina",
+    "POR - Portugal",
+    "CAN - Canadá",
+    "BEL - Bélgica",
+    "CRO - Croácia"
   ];
-
-  let elementos = null;
-
-  for (let i = 0; i < jogadores.length; i++) {
-    elementos = (
-      <>
-        {elementos}
-
-        <View
-          style={{
-            backgroundColor: "rgba(30,136,229,0.9)",
-            marginVertical: 6,
-            padding: 12,
-            borderRadius: 10,
-            width: 280,
-            elevation: 5
-          }}
-        >
-          <Text
-            style={{
-              color: "white",
-              fontSize: 16,
-              fontWeight: "bold",
-              textAlign: "center"
-            }}
-          >
-            {i + 1} ⚽ {jogadores[i]}
-          </Text>
-        </View>
-
-      </>
-    );
-  }
 
   return (
     <ImageBackground
       source={require('./assets/bandeira-brasil.jpg')}
-      style={{
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-        padding: 20
-      }}
+      style={styles.background}
       resizeMode="cover"
+      blurRadius={2}
     >
-      <Text
-        style={{
-          fontSize: 28,
-          fontWeight: "bold",
-          color: "white",
-          marginBottom: 20,
-          textShadowColor: "black",
-          textShadowOffset: { width: 2, height: 2 },
-          textShadowRadius: 5
-        }}
-      >
-        🇧🇷 Escalação da Seleção
+
+      {/* Título */}
+      <Text style={styles.titulo}>
+        🇧🇷 ESCALAÇÃO DA COPA
       </Text>
 
-      {elementos}
+      {/* Lista */}
+      {paises.map((pais, index) => (
+        <View key={index} style={styles.card}>
+          <Text style={styles.texto}>
+            {index + 1} ⚽ {pais}
+          </Text>
+        </View>
+      ))}
 
     </ImageBackground>
   );
 }
+
+const styles = StyleSheet.create({
+
+  background: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    padding: 20
+  },
+
+  titulo: {
+    fontSize: 30,
+    fontWeight: "bold",
+    color: "#FFD700",
+    marginBottom: 25,
+    textShadowColor: "#000",
+    textShadowOffset: { width: 3, height: 3 },
+    textShadowRadius: 6
+  },
+
+  card: {
+    backgroundColor: "rgba(0,100,0,0.85)",
+    marginVertical: 6,
+    padding: 14,
+    borderRadius: 14,
+    width: 300,
+    borderWidth: 2,
+    borderColor: "#FFD700",
+    elevation: 6,
+    shadowColor: "#000",
+    shadowOpacity: 0.4,
+    shadowRadius: 4,
+    shadowOffset: { width: 2, height: 2 }
+  },
+
+  texto: {
+    color: "white",
+    fontSize: 17,
+    fontWeight: "bold",
+    textAlign: "center"
+  }
+
+});
 
 export default App;
