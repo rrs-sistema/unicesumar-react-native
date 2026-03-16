@@ -1,57 +1,92 @@
-import { Image, SafeAreaView, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { useState } from "react";
+import {
+    Image,
+    KeyboardAvoidingView,
+    Platform,
+    SafeAreaView,
+    ScrollView,
+    StyleSheet,
+    Text,
+    TextInput,
+    TouchableOpacity,
+    View
+} from "react-native";
 
 export default function TelaDoacao() {
+    // Estado para armazenar a mensagem do usuário
+    const [mensagem, setMensagem] = useState("");
+
     return (
         <SafeAreaView style={styles.container}>
-            <ScrollView contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>
+            {/* KeyboardAvoidingView empurra a tela para cima no iOS quando o teclado abre */}
+            <KeyboardAvoidingView
+                behavior={Platform.OS === "ios" ? "padding" : undefined}
+                style={{ flex: 1 }}
+            >
+                {/* keyboardShouldPersistTaps="handled" fecha o teclado ao tocar fora do input */}
+                <ScrollView
+                    contentContainerStyle={styles.scrollContent}
+                    showsVerticalScrollIndicator={false}
+                    keyboardShouldPersistTaps="handled"
+                >
 
-                {/* Fundo Azul Superior simulando a tela inteira */}
-                <View style={styles.topBackground}>
-                    <View style={styles.header}>
-                        <Text style={styles.headerIcon}>⟨</Text>
-                        <Text style={styles.headerIcon}>🔍</Text>
+                    {/* Fundo Azul Superior */}
+                    <View style={styles.topBackground}>
+                        <View style={styles.header}>
+                            {/* Botões do cabeçalho agora são clicáveis e com área de toque expandida (hitSlop) */}
+                            <TouchableOpacity hitSlop={{ top: 15, bottom: 15, left: 15, right: 15 }}>
+                                <Text style={styles.headerIcon}>⟨</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity hitSlop={{ top: 15, bottom: 15, left: 15, right: 15 }}>
+                                <Text style={styles.headerIcon}>🔍</Text>
+                            </TouchableOpacity>
+                        </View>
                     </View>
-                </View>
 
-                {/* Card Branco Sobreposto */}
-                <View style={styles.card}>
+                    {/* Card Branco Sobreposto */}
+                    <View style={styles.card}>
 
-                    {/* Avatar Flutuante */}
-                    <View style={styles.avatarContainer}>
-                        <Image
-                            source={{ uri: "https://cdn-icons-png.flaticon.com/512/4140/4140037.png" }}
-                            style={styles.avatar}
-                            resizeMode="contain"
+                        {/* Avatar Flutuante */}
+                        <View style={styles.avatarContainer}>
+                            <Image
+                                source={{ uri: "https://cdn-icons-png.flaticon.com/512/4140/4140037.png" }}
+                                style={styles.avatar}
+                                resizeMode="contain"
+                            />
+                        </View>
+
+                        <Text style={styles.titulo}>Lorem ipsum dolor</Text>
+
+                        <Text style={styles.desc}>
+                            Lorem ipsum dolor sit amet, consectetuer diam adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna trwonummy.
+                        </Text>
+
+                        {/* Container do Valor de Doação */}
+                        <View style={styles.amountContainer}>
+                            <Text style={styles.valor}>$120.00</Text>
+                            <View style={styles.underline} />
+                        </View>
+
+                        {/* Área de Texto Interativa */}
+                        <TextInput
+                            placeholder="ENTER TEXT HERE"
+                            placeholderTextColor="#BAC6DA" // Cinza mais claro e elegante
+                            style={styles.input}
+                            multiline={true}
+                            textAlignVertical="top"
+                            value={mensagem}
+                            onChangeText={setMensagem} // Atualiza o estado ao digitar
+                            autoCorrect={false}
                         />
+
+                        {/* Botão de Doação com feedback tátil */}
+                        <TouchableOpacity style={styles.botao} activeOpacity={0.8}>
+                            <Text style={styles.botaoTexto}>DONATE</Text>
+                        </TouchableOpacity>
+
                     </View>
-
-                    <Text style={styles.titulo}>Lorem ipsum dolor</Text>
-
-                    <Text style={styles.desc}>
-                        Lorem ipsum dolor sit amet, consectetuer diam adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna trwonummy.
-                    </Text>
-
-                    {/* Container do Valor de Doação */}
-                    <View style={styles.amountContainer}>
-                        <Text style={styles.valor}>$120.00</Text>
-                        <View style={styles.underline} />
-                    </View>
-
-                    {/* Área de Texto Multi-linha */}
-                    <TextInput
-                        placeholder="ENTER TEXT HERE"
-                        placeholderTextColor="#A0A0A0"
-                        style={styles.input}
-                        multiline={true}
-                        textAlignVertical="top"
-                    />
-
-                    <TouchableOpacity style={styles.botao}>
-                        <Text style={styles.botaoTexto}>DONATE</Text>
-                    </TouchableOpacity>
-
-                </View>
-            </ScrollView>
+                </ScrollView>
+            </KeyboardAvoidingView>
         </SafeAreaView>
     );
 }
@@ -59,16 +94,17 @@ export default function TelaDoacao() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: "#FDF5D3", // Fundo amarelado (referência das bordas do anexo)
+        backgroundColor: "#FDF5D3", // Fundo amarelado
     },
     scrollContent: {
         flexGrow: 1,
         alignItems: "center",
+        paddingBottom: 40, // Espaço extra no fim da rolagem
     },
     topBackground: {
-        backgroundColor: "#00CDEB", // Ciano vibrante
+        backgroundColor: "#00CDEB",
         width: "100%",
-        height: 350,
+        height: 380, // Aumentei um pouco para cobrir melhor telas maiores
         position: "absolute",
         top: 0,
     },
@@ -76,35 +112,31 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         justifyContent: "space-between",
         paddingHorizontal: 25,
-        paddingTop: 50,
+        paddingTop: 60, // Ajuste para descer um pouco mais da barra de status
     },
     headerIcon: {
-        color: "rgba(255,255,255,0.7)",
-        fontSize: 22,
-        fontWeight: "300",
+        color: "rgba(255,255,255,0.8)",
+        fontSize: 24,
+        fontWeight: "400",
     },
     card: {
-        width: "92%",
+        width: "90%",
         maxWidth: 400,
         backgroundColor: "#FFFFFF",
-        borderTopLeftRadius: 35,
-        borderTopRightRadius: 35,
-        borderBottomLeftRadius: 30,
-        borderBottomRightRadius: 30,
+        borderRadius: 35, // Bordas mais arredondadas para combinar com a imagem
         paddingHorizontal: 30,
-        paddingBottom: 40,
-        marginTop: 200, // Empurra o card para baixo, mantendo o fundo azul visível
-        elevation: 10, // Sombra no Android
-        shadowColor: "#000", // Sombra no iOS
-        shadowOffset: { width: 0, height: 5 },
-        shadowOpacity: 0.15,
+        paddingBottom: 35,
+        marginTop: 220,
+        elevation: 10,
+        shadowColor: "#004B66", // Sombra azul escura em vez de preta para harmonizar
+        shadowOffset: { width: 0, height: 8 },
+        shadowOpacity: 0.1,
         shadowRadius: 15,
         alignItems: "center",
-        marginBottom: 30,
     },
     avatarContainer: {
-        marginTop: -65, // Puxa o avatar para fora do card (sobrepondo o azul)
-        marginBottom: 15,
+        marginTop: -65,
+        marginBottom: 20,
         alignItems: "center",
         justifyContent: "center",
     },
@@ -115,47 +147,49 @@ const styles = StyleSheet.create({
     titulo: {
         fontSize: 22,
         fontWeight: "bold",
-        color: "#7E9CE3", // Azul claro do título
+        color: "#7E9CE3",
         marginBottom: 12,
     },
     desc: {
-        fontSize: 12,
-        color: "#A5B4CB", // Cinza azulado
+        fontSize: 13, // Aumentei um ponto para legibilidade
+        color: "#9AA9C4",
         textAlign: "center",
-        lineHeight: 18,
-        marginBottom: 30,
+        lineHeight: 20,
+        marginBottom: 25,
         paddingHorizontal: 5,
     },
     amountContainer: {
-        backgroundColor: "#F4F6FB", // Fundo levemente cinza/azul
+        backgroundColor: "#F6F8FB", // Fundo super sutil
         width: "100%",
-        borderRadius: 25,
-        paddingVertical: 18,
+        borderRadius: 20,
+        paddingVertical: 15,
         alignItems: "center",
         marginBottom: 25,
     },
     valor: {
         fontSize: 42,
-        color: "#27CA71", // Verde exato da imagem
+        color: "#27CA71",
         fontWeight: "bold",
         letterSpacing: -1,
     },
     underline: {
         height: 2,
-        backgroundColor: "#8AA3D6", // Linha azul abaixo do valor
-        width: "60%",
-        marginTop: 5,
+        backgroundColor: "#A0B5E8", // Azul suavizado
+        width: "50%",
+        marginTop: 8,
+        borderRadius: 2,
     },
     input: {
         borderWidth: 1.5,
-        borderColor: "#DCE3F0",
+        borderColor: "#E2E8F0",
+        backgroundColor: "#FAFAFA", // Fundo do input levemente destacado do branco
         width: "100%",
-        height: 110, // Altura ampliada para text area
+        height: 120,
         padding: 18,
         borderRadius: 15,
         marginBottom: 30,
-        fontSize: 12,
-        color: "#4A4A4A",
+        fontSize: 13,
+        color: "#334155",
     },
     botao: {
         backgroundColor: "#18C66B",
@@ -163,16 +197,16 @@ const styles = StyleSheet.create({
         paddingVertical: 18,
         borderRadius: 25,
         alignItems: "center",
-        elevation: 2,
-        shadowColor: "#18C66B",
-        shadowOffset: { width: 0, height: 4 },
-        shadowOpacity: 0.3,
-        shadowRadius: 8,
+        elevation: 4,
+        shadowColor: "#18C66B", // Sombra colorida gera um efeito de "brilho"
+        shadowOffset: { width: 0, height: 6 },
+        shadowOpacity: 0.4,
+        shadowRadius: 10,
     },
     botaoTexto: {
         color: "#fff",
-        fontWeight: "400",
-        fontSize: 20,
-        letterSpacing: 1,
+        fontWeight: "bold",
+        fontSize: 18,
+        letterSpacing: 1.5, // Maior espaçamento nas letras para ficar mais sofisticado
     }
 });

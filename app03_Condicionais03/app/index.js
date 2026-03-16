@@ -5,6 +5,7 @@ import TelaLista from "../components/TelaLista";
 
 export default function Index() {
 
+    // Inicia mostrando a Tela 1
     const [tela, setTela] = useState("Tela1");
 
     return (
@@ -12,16 +13,36 @@ export default function Index() {
 
             <Text style={styles.titulo}>DESAFIO 03</Text>
 
-            <View style={styles.menu}>
-                <TouchableOpacity style={styles.botao} onPress={() => setTela("Tela One")}>
-                    <Text style={styles.botaoTexto}>Tela 1</Text>
-                </TouchableOpacity>
+            {/* Container centralizado para as abas */}
+            <View style={styles.menuContainer}>
+                <View style={styles.menu}>
 
-                <TouchableOpacity style={styles.botao} onPress={() => setTela("Tela Two")}>
-                    <Text style={styles.botaoTexto}>Tela 2</Text>
-                </TouchableOpacity>
+                    {/* Botão Tela 1 */}
+                    <TouchableOpacity
+                        style={[styles.botao, tela === "Tela1" && styles.botaoAtivo]}
+                        onPress={() => setTela("Tela1")}
+                        activeOpacity={0.8}
+                    >
+                        <Text style={[styles.botaoTexto, tela === "Tela1" ? styles.textoAtivo : styles.textoInativo]}>
+                            Tela 1
+                        </Text>
+                    </TouchableOpacity>
+
+                    {/* Botão Tela 2 */}
+                    <TouchableOpacity
+                        style={[styles.botao, tela === "Tela2" && styles.botaoAtivo]}
+                        onPress={() => setTela("Tela2")}
+                        activeOpacity={0.8}
+                    >
+                        <Text style={[styles.botaoTexto, tela === "Tela2" ? styles.textoAtivo : styles.textoInativo]}>
+                            Tela 2
+                        </Text>
+                    </TouchableOpacity>
+
+                </View>
             </View>
 
+            {/* Renderização condicional das telas */}
             {tela === "Tela1" ? <TelaLista /> : <TelaDoacao />}
 
         </View>
@@ -29,35 +50,51 @@ export default function Index() {
 }
 
 const styles = StyleSheet.create({
-
     container: {
         flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-        backgroundColor: "#f4f6f8"
+        backgroundColor: "#F4F6F8"
     },
-
     titulo: {
         fontSize: 22,
         fontWeight: "bold",
-        marginBottom: 20
+        textAlign: "center", // Centralizado para equilibrar o layout
+        marginBottom: 20,
+        marginTop: 60, // Aumentado para não colar no topo da tela do celular
+        color: "#334155" // Um cinza chumbo, mais elegante que o preto puro
     },
-
+    menuContainer: {
+        alignItems: "center",
+        marginBottom: 20,
+    },
     menu: {
         flexDirection: "row",
-        marginBottom: 20
+        backgroundColor: "#E2E8F0", // Fundo cinza claro agrupando os botões
+        borderRadius: 25,
+        padding: 4, // Espaçamento interno para a pílula ativa não encostar na borda
     },
-
     botao: {
-        backgroundColor: "#2d8cff",
-        padding: 10,
-        marginHorizontal: 5,
-        borderRadius: 20
+        paddingVertical: 10,
+        paddingHorizontal: 30, // Botões mais largos para facilitar o toque
+        borderRadius: 20,
     },
-
+    botaoAtivo: {
+        backgroundColor: "#2D8CFF",
+        // Sombra suave para o botão ativo (destaque)
+        shadowColor: "#2D8CFF",
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.3,
+        shadowRadius: 4,
+        elevation: 3,
+    },
     botaoTexto: {
-        color: "#fff",
-        fontWeight: "bold"
+        fontWeight: "bold",
+        fontSize: 15,
+        textAlign: "center"
+    },
+    textoAtivo: {
+        color: "#FFFFFF", // Branco quando selecionado
+    },
+    textoInativo: {
+        color: "#64748B", // Cinza médio quando não selecionado
     }
-
 });

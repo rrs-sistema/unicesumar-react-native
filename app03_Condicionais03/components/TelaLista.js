@@ -1,13 +1,13 @@
-import { Image, SafeAreaView, ScrollView, StyleSheet, Text, View } from "react-native";
+import { useState } from "react";
+import { Image, SafeAreaView, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 
 // Componente reutilizável para os itens da lista
-const ListItem = ({ title, description, avatarColor, progressWidth }) => (
+const ListItem = ({ title, description, avatarUrl, progressWidth }) => (
     <View style={styles.item}>
-        <View style={[styles.avatarContainer, { backgroundColor: avatarColor }]}>
+        <View style={styles.avatarContainer}>
             <Image
-                source={{ uri: "https://cdn-icons-png.flaticon.com/512/4140/4140048.png" }}
+                source={{ uri: avatarUrl }}
                 style={styles.avatar}
-                resizeMode="contain"
             />
         </View>
 
@@ -23,6 +23,10 @@ const ListItem = ({ title, description, avatarColor, progressWidth }) => (
 );
 
 export default function TelaLista() {
+    // Estados para a busca e para o chip (filtro) ativo
+    const [pesquisa, setPesquisa] = useState("");
+    const [filtroAtivo, setFiltroAtivo] = useState("Education"); // Inicia com Education selecionado
+
     return (
         <SafeAreaView style={styles.container}>
             <ScrollView contentContainerStyle={styles.card} showsVerticalScrollIndicator={false}>
@@ -30,19 +34,61 @@ export default function TelaLista() {
                 {/* Header: Avatar + Search Bar */}
                 <View style={styles.header}>
                     <View style={styles.profileCircle} />
-                    <View style={styles.searchBar}>
-                        <Text style={styles.searchText}>🔍 Search</Text>
+
+                    <View style={styles.searchContainer}>
+                        <Text style={styles.searchIcon}>🔍</Text>
+                        <TextInput
+                            style={styles.searchInput}
+                            placeholder="Search"
+                            placeholderTextColor="#AEC4EB"
+                            value={pesquisa}
+                            onChangeText={setPesquisa}
+                            autoCorrect={false}
+                        />
                     </View>
                 </View>
 
-                {/* Chips / Categorias */}
+                {/* Chips / Categorias Interativos */}
                 <View style={styles.chipsContainer}>
-                    <View style={[styles.chip, styles.chipActive]}>
-                        <Text style={styles.chipTextActive}>🎓 Education</Text>
-                    </View>
-                    <View style={styles.chipIcon}><Text style={styles.chipIconText}>✚</Text></View>
-                    <View style={styles.chipIcon}><Text style={styles.chipIconText}>🌱</Text></View>
-                    <View style={styles.chipIcon}><Text style={styles.chipIconText}>🐾</Text></View>
+
+                    {/* Chip: Education */}
+                    <TouchableOpacity
+                        style={[styles.chipBase, filtroAtivo === "Education" ? styles.chipActive : styles.chipInactive]}
+                        onPress={() => setFiltroAtivo("Education")}
+                        activeOpacity={0.7}
+                    >
+                        <Text style={filtroAtivo === "Education" ? styles.chipTextActive : styles.chipTextInactive}>
+                            🎓 Education
+                        </Text>
+                    </TouchableOpacity>
+
+                    {/* Chip: Ícone Mais */}
+                    <TouchableOpacity
+                        style={[styles.chipIconBase, filtroAtivo === "Add" ? styles.chipActive : styles.chipInactive]}
+                        onPress={() => setFiltroAtivo("Add")}
+                        activeOpacity={0.7}
+                    >
+                        <Text style={styles.chipIconText}>✚</Text>
+                    </TouchableOpacity>
+
+                    {/* Chip: Planta */}
+                    <TouchableOpacity
+                        style={[styles.chipIconBase, filtroAtivo === "Plant" ? styles.chipActive : styles.chipInactive]}
+                        onPress={() => setFiltroAtivo("Plant")}
+                        activeOpacity={0.7}
+                    >
+                        <Text style={styles.chipIconText}>🌱</Text>
+                    </TouchableOpacity>
+
+                    {/* Chip: Patinhas */}
+                    <TouchableOpacity
+                        style={[styles.chipIconBase, filtroAtivo === "Pets" ? styles.chipActive : styles.chipInactive]}
+                        onPress={() => setFiltroAtivo("Pets")}
+                        activeOpacity={0.7}
+                    >
+                        <Text style={styles.chipIconText}>🐾</Text>
+                    </TouchableOpacity>
+
                 </View>
 
                 {/* Subheader: Results + Filter */}
@@ -55,13 +101,13 @@ export default function TelaLista() {
                 <ListItem
                     title="Lorem ipsum dolor sit"
                     description="amet, consectetuer adipiscing elit, sed diam nonummy nibh."
-                    avatarColor="#00C4CC" // Ciano/Teal
-                    progressWidth="60%"
+                    avatarUrl="https://cdn-icons-png.flaticon.com/512/147/147144.png"
+                    progressWidth="65%"
                 />
                 <ListItem
                     title="Lorem ipsum dolor sit"
                     description="amet, consectetuer adipiscing elit, sed diam nonummy nibh."
-                    avatarColor="#84AEE8" // Azul Claro
+                    avatarUrl="https://cdn-icons-png.flaticon.com/512/147/147144.png"
                     progressWidth="85%"
                 />
 
@@ -91,7 +137,7 @@ export default function TelaLista() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: "#FDF5D3", // Cor de fundo amarelada das bordas do anexo
+        backgroundColor: "#FDF5D3",
         alignItems: "center",
         justifyContent: "center",
     },
@@ -108,60 +154,80 @@ const styles = StyleSheet.create({
     header: {
         flexDirection: "row",
         alignItems: "center",
-        marginBottom: 20,
+        marginBottom: 25,
     },
     profileCircle: {
-        width: 36,
-        height: 36,
-        borderRadius: 18,
+        width: 44,
+        height: 44,
+        borderRadius: 22,
         backgroundColor: "#AEC4EB",
         marginRight: 12,
     },
-    searchBar: {
+    searchContainer: {
         flex: 1,
+        flexDirection: "row",
+        alignItems: "center",
         backgroundColor: "#5C85D6",
-        paddingVertical: 10,
+        height: 44,
+        borderRadius: 22,
         paddingHorizontal: 16,
-        borderRadius: 20,
     },
-    searchText: {
-        color: "#E0E8F5",
-        fontSize: 14,
+    searchIcon: {
+        fontSize: 16,
+        marginRight: 8,
+        color: "#AEC4EB",
+    },
+    searchInput: {
+        flex: 1,
+        color: "#FFFFFF",
+        fontSize: 15,
+        height: "100%",
     },
     chipsContainer: {
         flexDirection: "row",
         alignItems: "center",
-        marginBottom: 20,
+        marginBottom: 25,
     },
-    chip: {
+
+    /* ESTILOS DOS CHIPS INTERATIVOS */
+    chipBase: {
         paddingHorizontal: 16,
-        paddingVertical: 8,
+        paddingVertical: 10,
         borderRadius: 20,
         marginRight: 10,
         flexDirection: "row",
         alignItems: "center",
     },
-    chipActive: {
-        backgroundColor: "#00C4CC",
-    },
-    chipTextActive: {
-        color: "#FFFFFF",
-        fontWeight: "600",
-        fontSize: 14,
-    },
-    chipIcon: {
-        width: 36,
-        height: 36,
-        borderRadius: 18,
-        backgroundColor: "#84AEE8",
+    chipIconBase: {
+        width: 40,
+        height: 40,
+        borderRadius: 20,
         justifyContent: "center",
         alignItems: "center",
         marginRight: 8,
+    },
+    chipActive: {
+        backgroundColor: "#00C4CC", // Cor Ciano de destaque para o chip clicado
+    },
+    chipInactive: {
+        backgroundColor: "#84AEE8", // Azul claro original para os chips não selecionados
+    },
+    chipTextActive: {
+        color: "#FFFFFF",
+        fontWeight: "700",
+        fontSize: 14,
+    },
+    chipTextInactive: {
+        color: "#FFFFFF", // O texto/ícone continua branco, mas o fundo muda
+        fontWeight: "500",
+        fontSize: 14,
     },
     chipIconText: {
         color: "#FFFFFF",
         fontSize: 16,
     },
+    /* FIM DOS ESTILOS DOS CHIPS */
+
     resultsRow: {
         flexDirection: "row",
         justifyContent: "space-between",
@@ -180,16 +246,15 @@ const styles = StyleSheet.create({
     avatarContainer: {
         width: 75,
         height: 75,
-        borderRadius: 16,
-        justifyContent: "flex-end",
-        alignItems: "center",
+        borderRadius: 37.5,
         marginRight: 16,
         overflow: "hidden",
+        backgroundColor: "#00C4CC",
     },
     avatar: {
-        width: 60,
-        height: 60,
-        bottom: -5,
+        width: "100%",
+        height: "100%",
+        resizeMode: "cover",
     },
     itemContent: {
         flex: 1,
@@ -203,7 +268,7 @@ const styles = StyleSheet.create({
     desc: {
         fontSize: 12,
         color: "#9AA9C4",
-        lineHeight: 16,
+        lineHeight: 18,
     },
     progressBar: {
         height: 6,
@@ -229,9 +294,9 @@ const styles = StyleSheet.create({
         marginBottom: 16,
     },
     graduationImage: {
-        width: 100,
-        height: 100,
-        tintColor: "#DDF1FF", // Aplica um tom de azul claro na imagem
+        width: 90,
+        height: 90,
+        tintColor: "#FFFFFF",
     },
     featuredTextRow: {
         flexDirection: "row",
