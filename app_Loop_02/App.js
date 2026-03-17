@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, ImageBackground, StyleSheet } from 'react-native';
+import { View, Text, ImageBackground, StyleSheet, ScrollView } from 'react-native';
 
 function App() {
 
@@ -27,17 +27,23 @@ function App() {
 
       {/* Título */}
       <Text style={styles.titulo}>
-        🇧🇷 ESCALAÇÃO DA COPA
+        TOP 10 SELEÇÕES FARORITAS A CAMPEÃ DA COPA
       </Text>
 
-      {/* Lista */}
-      {paises.map((pais, index) => (
-        <View key={index} style={styles.card}>
-          <Text style={styles.texto}>
-            {index + 1} ⚽ {pais}
-          </Text>
-        </View>
-      ))}
+      {/* Área com Scroll */}
+      <ScrollView
+        style={styles.scroll}
+        contentContainerStyle={styles.scrollContainer}
+        showsVerticalScrollIndicator={false}
+      >
+        {paises.map((pais, index) => (
+          <View key={index} style={styles.card}>
+            <Text style={styles.texto}>
+              {index + 1} ⚽ {pais}
+            </Text>
+          </View>
+        ))}
+      </ScrollView>
 
     </ImageBackground>
   );
@@ -47,19 +53,29 @@ const styles = StyleSheet.create({
 
   background: {
     flex: 1,
-    justifyContent: "center",
     alignItems: "center",
-    padding: 20
+    paddingTop: 60,
+    paddingHorizontal: 20
   },
 
   titulo: {
-    fontSize: 30,
+    fontSize: 25,
     fontWeight: "bold",
     color: "#FFD700",
-    marginBottom: 25,
+    marginBottom: 20,
     textShadowColor: "#000",
     textShadowOffset: { width: 3, height: 3 },
-    textShadowRadius: 6
+    textShadowRadius: 6,
+    textAlign: 'center'
+  },
+
+  scroll: {
+    width: "100%"
+  },
+
+  scrollContainer: {
+    alignItems: "center",
+    paddingBottom: 40
   },
 
   card: {
