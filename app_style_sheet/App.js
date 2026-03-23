@@ -1,23 +1,41 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, Image } from 'react-native';
 
 export default function App() {
   return (
     <View style={styles.fundo}>
 
-      {/* 🔴 Cabeçalho */}
+      {/* 🔴 CABEÇALHO */}
       <View style={styles.cabecalho}>
-        <Text style={styles.texto}>CABEÇALHO</Text>
+
+        {/* 👤 ESQUERDA (imagem + nome) */}
+        <View style={styles.infoUsuario}>
+          <Image
+            source={{ uri: 'https://cdn-icons-png.flaticon.com/512/3135/3135715.png' }}
+            style={styles.avatar}
+          />
+
+          <Text style={styles.nome}>
+            Nome Sobrenome
+          </Text>
+        </View>
+
+        {/* 📱 DIREITA */}
+        <Image
+          source={{ uri: 'https://cdn-icons-png.flaticon.com/512/159/159832.png' }}
+          style={styles.iconeDireita}
+        />
+
       </View>
 
-      {/* 🟢 Conteúdo */}
+      {/* 🟢 CONTEÚDO */}
       <View style={styles.conteudo}>
-        <Text style={styles.texto}>CONTEÚDO</Text>
+        <Text>CONTEÚDO</Text>
       </View>
 
-      {/* ⚫ Rodapé */}
+      {/* ⚫ RODAPÉ */}
       <View style={styles.rodape}>
-        <Text style={styles.texto}>RODAPÉ</Text>
+        <Text style={{ color: '#fff' }}>RODAPÉ</Text>
       </View>
 
     </View>
@@ -27,32 +45,51 @@ export default function App() {
 const styles = StyleSheet.create({
   fundo: {
     flex: 1,
-    backgroundColor: '#e0f7fa', // azul claro (igual ao exemplo)
+    backgroundColor: '#e0f7fa',
   },
 
   cabecalho: {
-    flex: 0.15, // 15%
-    backgroundColor: 'red',
-    justifyContent: 'center',
+    flex: 0.15,
+    backgroundColor: '#fff',
+    flexDirection: 'row', // 🔥 horizontal
+    alignItems: 'center', // central vertical
+    justifyContent: 'space-between', // separa esquerda e direita
+    paddingHorizontal: 20,
+  },
+
+  infoUsuario: {
+    flexDirection: 'row',
     alignItems: 'center',
   },
 
+  avatar: {
+    width: 50,
+    height: 50,
+  },
+
+  nome: {
+    marginLeft: 15,
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+
+  iconeDireita: {
+    width: 20,
+    height: 30,
+    resizeMode: 'contain',
+  },
+
   conteudo: {
-    flex: 0.75, // 75%
+    flex: 0.75,
     backgroundColor: 'green',
     justifyContent: 'center',
     alignItems: 'center',
   },
 
   rodape: {
-    flex: 0.10, // 10%
+    flex: 0.10,
     backgroundColor: 'black',
     justifyContent: 'center',
     alignItems: 'center',
-  },
-
-  texto: {
-    color: '#fff',
-    fontWeight: 'bold',
   },
 });
