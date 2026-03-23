@@ -51,9 +51,9 @@ export default function App() {
 
         {/* MEDIDAS */}
         <View style={styles.infoCard}>
-          <Text style={styles.sectionTitle}>Medidas</Text>
-          <Text style={styles.infoText}>Peso: 150 kg</Text>
-          <Text style={styles.infoText}>Altura: 190 cm</Text>
+          <Text style={styles.sectionTitle}>Medidas do Grupo</Text>
+          <Text style={styles.infoText}>Peso: 230 kg</Text>
+          <Text style={styles.infoText}>Altura: 490 cm</Text>
         </View>
 
         {/* CIRURGIA */}
