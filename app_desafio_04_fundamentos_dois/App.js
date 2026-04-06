@@ -1,32 +1,20 @@
 import React from "react";
-import { View, StyleSheet, SafeAreaView, StatusBar } from "react-native";
-
-import Cabecalho from "./src/Cabecalho";
-import Conteudo from "./src/Conteudo";
-import Rodape from "./src/Rodape";
+import { SafeAreaView, StatusBar, StyleSheet } from "react-native";
+import HomeScreen from "./src/screens/HomeScreen";
+import { Colors } from "./src/theme/colors";
 
 export default function App() {
   return (
-    <SafeAreaView style={styles.safeArea}>
-      <StatusBar barStyle="dark-content" backgroundColor="#F3F3F3" />
-      <View style={styles.container}>
-        <Cabecalho />
-        <Conteudo />
-        <Rodape
-          nome="Jullia Acsa - Rivaldo R. - Nicolas Brian"
-          data="06/04/2026"
-        />
-      </View>
+    <SafeAreaView style={styles.container}>
+      <StatusBar barStyle="dark-content" backgroundColor={Colors.background} />
+      <HomeScreen />
     </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  safeArea: {
-    flex: 1,
-    backgroundColor: "#F3F3F3",
-  },
   container: {
     flex: 1,
+    backgroundColor: Colors.background,
   },
 });
