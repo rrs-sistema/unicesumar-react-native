@@ -1,5 +1,5 @@
 import React from "react";
-import { View, ScrollView, StyleSheet } from "react-native";
+import { View, FlatList, StyleSheet } from "react-native";
 import PortalHeader from "../components/PortalHeader";
 import SectionTitle from "../components/SectionTitle";
 import NewsCard from "../components/NewsCard";
@@ -10,26 +10,29 @@ import { Colors } from "../theme/colors";
 import { Spacing } from "../theme/spacing";
 
 export default function HomeScreen() {
+    const renderItem = ({ item }) => (
+        <NewsCard
+            category={item.category}
+            title={item.title}
+            date={item.date}
+        />
+    );
+
     return (
         <View style={styles.container}>
             <PortalHeader />
 
-            <ScrollView
-                style={styles.content}
-                contentContainerStyle={styles.contentContainer}
-                showsVerticalScrollIndicator={false}
-            >
+            <View style={styles.contentArea}>
                 <SectionTitle title={APP_TEXTS.sectionTitle} />
 
-                {newsData.map((newsItem) => (
-                    <NewsCard
-                        key={newsItem.id}
-                        category={newsItem.category}
-                        title={newsItem.title}
-                        date={newsItem.date}
-                    />
-                ))}
-            </ScrollView>
+                <FlatList
+                    data={newsData}
+                    keyExtractor={(item) => item.id.toString()}
+                    renderItem={renderItem}
+                    showsVerticalScrollIndicator={false}
+                    contentContainerStyle={styles.listContent}
+                />
+            </View>
 
             <Footer
                 authors={APP_TEXTS.authors}
@@ -44,10 +47,10 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: Colors.background,
     },
-    content: {
+    contentArea: {
         flex: 1,
     },
-    contentContainer: {
-        paddingBottom: Spacing.xl,
+    listContent: {
+        paddingBottom: Spacing.md,
     },
 });

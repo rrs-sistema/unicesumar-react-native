@@ -2,18 +2,25 @@ import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { Colors } from "../theme/colors";
 import { Spacing } from "../theme/spacing";
+import { Typography } from "../theme/typography";
 
 export default function Footer({ authors, date }) {
     return (
         <View style={styles.container}>
-            <Text style={styles.info}>
+            <Text style={styles.infoText}>
                 Receba nosso informativo <Text style={styles.bold}>gratuitamente</Text>
             </Text>
 
             <View style={styles.iconRow}>
-                <Text style={styles.icon}>✉️</Text>
-                <Text style={styles.icon}>🟢</Text>
-                <Text style={styles.icon}>📨</Text>
+                <View style={styles.iconBox}>
+                    <Text style={styles.icon}>✉️</Text>
+                </View>
+                <View style={styles.iconBox}>
+                    <Text style={styles.icon}>🟢</Text>
+                </View>
+                <View style={styles.iconBox}>
+                    <Text style={styles.icon}>📨</Text>
+                </View>
             </View>
 
             <Text style={styles.meta}>{authors}</Text>
@@ -24,35 +31,51 @@ export default function Footer({ authors, date }) {
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: Colors.footer,
-        alignItems: "center",
-        justifyContent: "center",
+        marginTop: Spacing.md,
         paddingTop: Spacing.md,
-        paddingBottom: Spacing.md,
+        paddingBottom: Spacing.lg,
+        backgroundColor: Colors.footer,
         borderTopWidth: 1,
         borderTopColor: Colors.border,
+        alignItems: "center",
     },
-    info: {
-        fontSize: 15,
+    infoText: {
+        fontSize: Typography.body,
         color: Colors.textSecondary,
-        marginBottom: Spacing.sm,
+        marginBottom: Spacing.md,
     },
     bold: {
         fontWeight: "800",
     },
     iconRow: {
-        width: "80%",
         flexDirection: "row",
-        justifyContent: "space-around",
+        justifyContent: "space-evenly",
+        width: "80%",
+        marginBottom: Spacing.md,
+    },
+    iconBox: {
+        width: 52,
+        height: 52,
+        borderRadius: 26,
+        backgroundColor: Colors.surface,
         alignItems: "center",
-        marginBottom: Spacing.sm,
+        justifyContent: "center",
+        borderWidth: 1,
+        borderColor: Colors.border,
+        shadowColor: Colors.shadow,
+        shadowOpacity: 0.05,
+        shadowRadius: 4,
+        shadowOffset: { width: 0, height: 2 },
+        elevation: 2,
     },
     icon: {
-        fontSize: 24,
+        fontSize: 22,
     },
     meta: {
-        fontSize: 12,
+        fontSize: Typography.small,
         color: Colors.textSecondary,
         textAlign: "center",
+        marginBottom: 2,
+        paddingHorizontal: Spacing.md,
     },
 });
