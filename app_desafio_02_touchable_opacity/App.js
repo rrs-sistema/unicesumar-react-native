@@ -1,8 +1,27 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Image, Text, View, TouchableOpacity } from 'react-native';
 import { estilos } from './src/styleSheet/estilos';
 
 function App() {
+  const ArrayFrases = [
+    'Siga as boas pessoas e aprenda com elas',
+    'O bom-senso vale mais do que muito conhecimento',
+    'O riso é a maior distância entre duas pessoas',
+    'Deixe de lado as preocupações e seja feliz',
+    'Realize o óbvio, pense no improvável e conquiste o impossível',
+    'Acredite em milagres, mas não dependa deles',
+    'A maior barreira para o sucesso é o medo do fracasso',
+  ];
+
+  const [textoBotao, setTextoBotao] = useState('Quebrar Biscoito!');
+  const [imgBiscoito, setImgBiscoito] = useState(
+    require('./src/img/BS02_biscoito.png')
+  );
+
+  function alteraStatusBiscoito() {
+    window.alert('oi');
+  }
+
   return (
     <View style={estilos.areaFundo}>
       <View style={estilos.areaTitulo}>
@@ -10,22 +29,19 @@ function App() {
       </View>
 
       <View style={estilos.areaImg}>
-        <Image
-          source={require('./src/image/BS02_biscoito.png')}
-          style={estilos.img}
-        />
+        <Image source={imgBiscoito} style={estilos.img} />
       </View>
 
-      <View style={estilos.areaConteudo}>
-        <Text style={estilos.textoFrase}>"Alguma frase aqui..."</Text>
+      <View>
+        <Text style={estilos.textoFrase}>Algumas frases aqui.....</Text>
 
-        <TouchableOpacity style={estilos.botao}>
+        <TouchableOpacity style={estilos.botao} onPress={alteraStatusBiscoito}>
           <View style={estilos.areaBotao}>
             <Image
-              source={require('./src/image/BS03_Btn_icone_01.png')}
-              style={estilos.iconeBotao}
+              source={require('./src/img/BS03_Btn_icone_01.png')}
+              style={{ marginRight: 20, width: 40, height: 40 }}
             />
-            <Text style={estilos.textoBotao}>Quebrar Biscoito</Text>
+            <Text style={estilos.textoBotao}>{textoBotao}</Text>
           </View>
         </TouchableOpacity>
       </View>

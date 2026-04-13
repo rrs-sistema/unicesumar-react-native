@@ -1,85 +1,59 @@
 import { StyleSheet } from 'react-native';
 
-const estilos = StyleSheet.create({
+export const estilos = StyleSheet.create({
     areaFundo: {
         flex: 1,
-        backgroundColor: '#F3F3F3',
-        paddingTop: 30,
-        paddingHorizontal: 10,
+        justifyContent: 'center',
         alignItems: 'center',
+        backgroundColor: '#f5f5f5',
+        padding: 20,
     },
 
     areaTitulo: {
-        height: 70,
-        width: '100%',
-        backgroundColor: '#F7A400',
-        borderRadius: 18,
-        alignItems: 'center',
-        justifyContent: 'center',
-        marginBottom: 20,
+        marginBottom: 30,
     },
 
     titulo: {
         fontSize: 28,
         fontWeight: 'bold',
-        color: '#FFFFFF',
+        color: '#dd7b22',
+        textAlign: 'center',
     },
 
     areaImg: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
+        marginBottom: 30,
     },
 
     img: {
-        width: 260,
-        height: 260,
+        width: 250,
+        height: 250,
         resizeMode: 'contain',
     },
 
-    areaConteudo: {
-        width: '100%',
-        alignItems: 'center',
-        marginBottom: 40,
-    },
-
     textoFrase: {
-        color: '#3F51B5',
         fontSize: 18,
-        fontStyle: 'italic',
+        color: '#333',
         textAlign: 'center',
-        marginBottom: 30,
+        marginBottom: 25,
         paddingHorizontal: 20,
     },
 
     botao: {
-        width: 240,
-        height: 52,
-        borderWidth: 2,
-        borderColor: '#F7A400',
-        borderRadius: 26,
-        backgroundColor: '#FFFFFF',
-        justifyContent: 'center',
+        backgroundColor: '#dd7b22',
+        borderRadius: 8,
+        paddingVertical: 12,
+        paddingHorizontal: 20,
     },
 
     areaBotao: {
         flexDirection: 'row',
-        justifyContent: 'center',
         alignItems: 'center',
-    },
-
-    iconeBotao: {
-        width: 26,
-        height: 26,
-        marginRight: 10,
-        resizeMode: 'contain',
+        justifyContent: 'center',
     },
 
     textoBotao: {
-        fontSize: 16,
+        fontSize: 18,
+        color: '#fff',
         fontWeight: 'bold',
-        color: '#F7A400',
     },
 });
-
-export { estilos };
