@@ -6,6 +6,12 @@ Este projeto foi desenvolvido como atividade prática de **Desenvolvimento Mobil
 
 Construir uma interface simples utilizando o componente **Slider**, permitindo interação do usuário com valores em um intervalo definido, além de alterar propriedades visuais da tela com base nos movimentos dos controles deslizantes.
 
+## Imagem da atividade
+
+![Tela da atividade com Slider](src/img/image.png)
+
+Construir uma interface simples utilizando o componente **Slider**, permitindo interação do usuário com valores em um intervalo definido, além de alterar propriedades visuais da tela com base nos movimentos dos controles deslizantes.
+
 ## Funcionalidades da atividade
 
 - Exibição de texto explicativo sobre o componente Slider
