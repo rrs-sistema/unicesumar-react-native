@@ -1,5 +1,3 @@
-estou usando o README.md
-
 Leia-me — Atividade com Componente Switch
 React Native | Capítulo 6
 Objetivo
